@@ -62,7 +62,7 @@ def lambda_handler(event, context):
     dynamo_items = []
 
     # Process each series
-    for index in range(1, len(original_data)):  # Skip the header row
+    for index in range(len(original_data)):  # Don't Skip the header row
         row = original_data[index]
         series_id = row[0]  # seriesName
         periodicity = int(row[1])  # periodicity
@@ -78,8 +78,9 @@ def lambda_handler(event, context):
 
         # Prepare the series entry for DynamoDB
         series_entry = {
-            "series_id": series_id,
+            "itemId": series_id,
             "seriesGroupId": "TEST_01",  # Add the seriesGroupId here
+            "tsAdded": int(datetime.now().timestamp()),
             "workspace_id": workspace_id,  # Add workspace_id to the entry
             "original": [{"date": date, "value": value} for date, value in zip(dates, original_values)],
             "seasonally_adjusted": [],
