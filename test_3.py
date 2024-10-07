@@ -3,6 +3,7 @@ import json
 import boto3
 import os
 from datetime import datetime
+from decimal import Decimal
 
 # Initialize Boto3 clients
 s3_client = boto3.client('s3')
@@ -72,8 +73,8 @@ def lambda_handler(event, context):
         # Generate date list for original values based on periodicity
         dates = generate_dates(start_year, start_month, num_values, periodicity)
 
-        # Extract original values
-        original_values = list(map(float, row[5:5 + num_values]))
+        # Extract original values and convert to Decimal
+        original_values = [Decimal(value) for value in row[5:5 + num_values]]
 
         # Prepare the series entry for DynamoDB
         series_entry = {
@@ -88,8 +89,8 @@ def lambda_handler(event, context):
         sa_row = seasonally_adjusted_data[index]
         trend_row = trend_data[index]
 
-        sa_values = list(map(float, sa_row[5:5 + num_values]))
-        trend_values = list(map(float, trend_row[5:5 + num_values]))
+        sa_values = [Decimal(value) for value in sa_row[5:5 + num_values]]
+        trend_values = [Decimal(value) for value in trend_row[5:5 + num_values]]
 
         series_entry["seasonally_adjusted"] = [{"date": date, "value": value} for date, value in zip(dates, sa_values)]
         series_entry["trend"] = [{"date": date, "value": value} for date, value in zip(dates, trend_values)]
