@@ -96,6 +96,9 @@ def lambda_handler(event, context):
         series_entry["seasonally_adjusted"] = [{"date": date, "value": value} for date, value in zip(dates, sa_values)]
         series_entry["trend"] = [{"date": date, "value": value} for date, value in zip(dates, trend_values)]
 
+        # Print the series entry to debug
+        print(f"Appending to DynamoDB: {series_entry}")
+
         # Append the series entry to the items list for DynamoDB
         dynamo_items.append(series_entry)
 
@@ -103,8 +106,24 @@ def lambda_handler(event, context):
     dynamodb_table_name = 'your-dynamodb-table-name'  # Replace with your DynamoDB table name
     write_to_dynamodb(dynamo_items, dynamodb_table_name)
 
+    # Generate a JSON file from the items
+    json_file_path = '/tmp/processed_data.json'
+    with open(json_file_path, 'w') as json_file:
+        json.dump(dynamo_items, json_file, default=str)  # Using default=str to handle Decimal
+
+    print(f"JSON file created at: {json_file_path}")
+
+    # Upload the JSON file to another S3 bucket
+    target_bucket_name = 'my-json-bucket'  # Replace with your target S3 bucket name
+    target_key = 'processed_data/processed_data.json'  # Path in S3 where the JSON file will be stored
+
+    # Upload the JSON file
+    s3_client.upload_file(json_file_path, target_bucket_name, target_key)
+
+    print(f"Uploaded JSON file to s3://{target_bucket_name}/{target_key}")
+
     # Return a success response
     return {
         'statusCode': 200,
-        'body': json.dumps({"message": "Data processed successfully!", "workspace_id": workspace_id})
+        'body': json.dumps({"message": "Data processed successfully!", "workspace_id": workspace_id, "json_file_path": json_file_path})
     }
