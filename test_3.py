@@ -39,7 +39,7 @@ def read_csv_from_s3(bucket, key):
 def write_to_dynamodb(data, table_name):
     table = dynamodb_client.Table(table_name)
     for item in data:
-        # Assuming item is a dictionary with the necessary keys
+        # Each item should contain all required attributes
         table.put_item(Item=item)
 
 def lambda_handler(event, context):
@@ -79,6 +79,7 @@ def lambda_handler(event, context):
         # Prepare the series entry for DynamoDB
         series_entry = {
             "series_id": series_id,
+            "seriesGroupId": "TEST_01",  # Add the seriesGroupId here
             "workspace_id": workspace_id,  # Add workspace_id to the entry
             "original": [{"date": date, "value": value} for date, value in zip(dates, original_values)],
             "seasonally_adjusted": [],
