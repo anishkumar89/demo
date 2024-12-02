@@ -1,0 +1,19 @@
+Feature: Validate Regressor Name against Series Group Name during Series Knowledge Onboarding
+
+  As a system administrator,
+  I want to ensure the Regressor Name is not the same as the Series Group Name,
+  So that data integrity is maintained during the onboarding process.
+
+  Scenario: Reject onboarding when Regressor Name matches Series Group Name
+    Given a Series Group Name "SalesData"
+    And a Regressor Name "SalesData"
+    When the onboarding request is submitted
+    Then the system should respond with a 400 status code
+    And the response should include an error message indicating "Regressor Name cannot be the same as Series Group Name."
+
+  Scenario: Allow onboarding when Regressor Name differs from Series Group Name
+    Given a Series Group Name "SalesData"
+    And a Regressor Name "MarketTrends"
+    When the onboarding request is submitted
+    Then the system should respond with a 201 status code
+    And the response should confirm successful onboarding.
