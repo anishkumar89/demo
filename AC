@@ -1,0 +1,53 @@
+Feature: Workspace Management Enhancements
+
+  Scenario: Automatically highlight valid and invalid metadata changes
+    Given a WIP workspace exists
+    When metadata changes are detected
+    Then the system should highlight valid changes
+    And the system should highlight invalid changes
+
+  Scenario: Store WIP workspace information in a new DynamoDB table
+    Given a new WIP workspace is created
+    When the workspace is saved
+    Then its metadata, series group ID, and series ID should be stored in the DynamoDB table
+
+  Scenario: List and filter WIP workspaces by series group ID and series ID
+    Given a set of WIP workspaces exists
+    When a user requests a list by series group ID
+    Then the system should return all series group IDs with associated WIP workspaces
+    When a user requests a list by series ID for a series group
+    Then the system should return all series IDs with associated WIP workspaces
+
+  Scenario: Block commits if there are unresolved errors
+    Given a WIP workspace contains unresolved errors
+    When a user attempts to commit changes
+    Then the commit operation should be blocked
+    And an error message should inform the user about unresolved issues
+
+  Scenario: Update metadata store on commit or reject operation
+    Given a user decides to commit changes to a WIP workspace
+    When the commit operation is successful
+    Then the system should update the metadata store
+    And reflect the success status in the UI
+    Given a user decides to reject changes
+    When the reject operation is successful
+    Then the system should discard the changes
+    And delete the WIP workspace
+
+  Scenario: Trigger email notifications for critical failures
+    Given a critical failure occurs during a workspace operation
+    When the failure is detected
+    Then the system should send an email notification to SATS support
+    And include detailed error logs and suggested actions
+
+  Scenario: Create updated read-only workspaces with committed changes
+    Given changes are committed to a WIP workspace
+    When the system processes the changes
+    Then a new read-only workspace should be created with the committed changes
+
+  Scenario: Implement comprehensive logging and error-handling mechanisms
+    Given an operation is performed on a WIP workspace
+    When an error occurs
+    Then the system should log the error with sufficient detail for debugging
+    And report the error to the user with actionable suggestions
+    And block further operations until errors are resolved
