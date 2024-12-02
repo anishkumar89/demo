@@ -1,0 +1,75 @@
+Epic: Enhance Workspace Management for Metadata Comparison and Commit/Reject Workflow
+Epic Description:
+This epic focuses on improving the workspace management workflow for metadata comparison and commit/reject operations. The enhancements include creating read-only workspaces, comparing workspace files for metadata changes, and implementing robust APIs for commit/reject processes. Additional features such as error handling, notifying users of unsupported changes, and reporting unrecognized nodes will ensure a seamless and accurate workflow. The deliverables also include email notifications for critical failures and the ability to list and manage workspaces by series group and ID.
+
+Stories
+Story 1: Make S3 Filesystem Read-Only
+Description: Ensure that workspace folders in the S3 filesystem are read-only and cannot be overwritten using tools like JD GUI.
+Acceptance Criteria:
+Workspace folders are read-only by default.
+Any attempt to overwrite these folders triggers an appropriate error message.
+Story 2: Compare Workspace Files for Metadata Changes
+Description: Automate the process of comparing workspace files to detect metadata changes, including those not explicitly listed in the spec spreadsheet.
+Acceptance Criteria:
+Comparison covers all nodes mentioned in the spec spreadsheet.
+Unrecognized nodes are flagged and logged.
+Users are notified of unsupported changes (e.g., changes to the analysis span).
+Detailed results of valid and invalid changes are presented to the user.
+Story 3: Create DynamoDB Table for WIP Workspaces
+Description: Implement a DynamoDB table to store WIP workspace metadata for comparisons and build associated APIs.
+Acceptance Criteria:
+DynamoDB table is created and populated with WIP workspace metadata.
+APIs support:
+Adding WIP workspaces.
+Updating WIP workspaces.
+Retrieving WIP workspaces by series group ID and series ID.
+APIs are tested for performance and accuracy.
+Story 4: Implement Service to List WIP Workspaces
+Description: Build a service to list all WIP workspaces by series group ID and series ID.
+Acceptance Criteria:
+Endpoint to list all series group IDs with WIP workspaces.
+Endpoint to list all series IDs within a series group with WIP workspaces.
+Endpoint to list all WIP workspaces for a series ID.
+Provide detailed information on valid/invalid changes and log comparison failures.
+Story 5: Build Commit/Reject API
+Description: Develop an API to handle commit and reject operations for WIP workspaces, including metadata updates and cleanup tasks.
+Acceptance Criteria:
+Commit operation updates the metadata store and marks the workspace as completed.
+Reject operation discards changes, deletes the workspace, and updates the DynamoDB table.
+If write operations fail, users are notified with clear instructions to retry.
+UI reflects successful or failed commit/reject operations.
+Story 6: Enhance Error Handling for Commit Operations
+Description: Ensure robust error handling for unsupported changes and unrecognized nodes during the commit process.
+Acceptance Criteria:
+Service checks all JD nodes mentioned in the spreadsheet for validity.
+Unrecognized or unsupported changes are flagged before commit.
+Users cannot commit until all errors are resolved.
+Story 7: Email Notifications for Critical Failures
+Description: Implement an email notification system to alert SATS support of critical failures during workspace operations.
+Acceptance Criteria:
+Emails are triggered for critical failures, including workspace save errors and metadata inconsistencies.
+Email includes detailed failure information for troubleshooting.
+Story 8: Finalize Service for Creating Read-Only Workspaces
+Description: Enhance the service to create read-only workspaces by incorporating pipeline logs.
+Acceptance Criteria:
+Service creates read-only workspaces with metadata from the pipeline logs.
+Bulk update functionality does not retrigger workspace creation automatically.
+If bulk update triggers deletion of existing WIP workspaces, ensure proper logging and notification.
+Story 9: Investigate Bulk Update Impact on WIP Workspaces
+Description: Decide and implement the behavior for bulk updates in relation to existing WIP workspaces.
+Acceptance Criteria:
+Bulk updates can optionally delete existing WIP workspaces.
+Commit operations for a series automatically delete all WIP workspaces for that series.
+Requirement alignment with business stakeholders is documented.
+Story 10: Approval Workflow for Commit/Reject
+Description: Investigate and define if a dual-approval workflow is required for commit/reject operations.
+Acceptance Criteria:
+Approval workflow is either implemented or documented as not required at this stage.
+If needed, additional approval steps are logged and auditable.
+Acceptance Criteria for the Epic:
+All stories are implemented, tested, and integrated.
+Users can seamlessly compare, commit, or discard changes for WIP workspaces.
+Metadata consistency is maintained with robust error handling.
+All JD nodes, including unrecognized ones, are accounted for during comparison.
+Critical failures are logged and promptly reported to support teams.
+APIs and services perform as expected under load.
