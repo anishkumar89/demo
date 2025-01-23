@@ -1,0 +1,7 @@
+This merge request only updates the unfrozen span in DynamoDB and does not update the latest item.
+
+We need to create a task to develop a common module that accepts the data to be written. This module should perform hashing comparison, update the latest item accordingly, and write the data items into the series knowledge table.
+
+The common module should also have functionality to fetch the version and tsUpdated of the latest item by using the SeriesGroupId. Based on the latest item, it should retrieve all items (series or regressors) associated with that SeriesGroupId.
+
+Using the provided parameters, we can update the data to be written—covering both unchanged and changed series/regressors—and pass it to the common module, which will write the data items along with a version upgrade.
