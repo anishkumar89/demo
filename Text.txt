@@ -1,0 +1,67 @@
+My Performance Goals – 6-Month Feedback
+
+Lead successful delivery of SATS for Monthly CPI
+
+Successfully led the deployment of SATS into the CPI environments (DEV, PPD, and PROD).
+
+UAT testing resulted in very few bugs, and any issues identified were resolved promptly.
+
+Discussed the severity of vulnerabilities identified during X-Ray scanning with the security team and documented the decisions to prevent delays in the production deployment.
+
+Communicated effectively with stakeholders and sought support when needed to ensure smooth progress.
+
+Implement CI/CD pipelines using GitLab
+
+Implemented automated test suites to run regression and progression tests for every merge request promoted to protected branches.
+
+This helped prevent incorrect code from being deployed to higher environments.
+
+Automate deployment processes to improve efficiency
+
+Worked on automating deployment processes to reduce manual effort, increase efficiency, and minimize rework.
+
+Maintain clear and comprehensive technical documentation
+
+Contributed to documenting the release and backup processes for SATS.
+
+Assisted Annette in preparing the Security Architecture Document (SAD) by consolidating technical information and getting it endorsed by senior executives.
+
+Propose and implement process or tool improvements
+
+Participated in technical discussions with the Multi-Disciplinary Team (MDT) to identify process gaps and suggest improvements, including introducing suitable tools where needed.
+
+Facilitate monthly team knowledge-sharing sessions
+
+Supported weekly tech team catch-ups focused on knowledge sharing, discussing challenges, and finding collective solutions.
+
+My Development Goals – 6-Month Feedback
+
+Deepen knowledge of ABS processes, principles, and best practices
+
+Gained a stronger understanding of ABS deployment processes and security best practices, particularly around securing DynamoDB data using proper encryption keys and applying the principle of least privilege.
+
+Advance proficiency in TypeScript and Python
+
+Improved skills in both TypeScript and Python through continuous learning and hands-on project work.
+
+Build expertise in DevOps tools and practices
+
+Strengthened DevOps expertise by resolving issues related to sourcing JDemetra binaries from open-source platforms like GitHub after a key team member’s departure.
+
+Leverage ABS internal resources for continuous learning
+
+Collaborated effectively with cross-functional teams to make better use of internal resources and improve understanding of ABS processes.
+
+My Corporate and Cultural Contribution – 6-Month Feedback
+
+Promote a collaborative and inclusive team culture
+
+Encouraged a culture where every team member’s opinion is valued.
+
+Ensured that technical solutions were discussed collectively, allowing everyone to contribute before final decisions were made.
+
+Participate in ABS community initiatives and working groups
+
+While I haven’t yet actively participated in ABS community initiatives, I plan to increase my involvement in the coming year.
+
+I also aim to expand my network within ABS and gain more experience in mentoring and coaching others.
